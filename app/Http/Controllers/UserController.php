@@ -26,11 +26,11 @@ class UserController extends Controller
                 return response(['message' => 'Unauthorised'], 401);
             }
 
-            return response(['message' => 'User login successfully', 'data' => $data], 200);
+            return response(['message' => 'Usuário logado com sucesso!', 'data' => $data], 200);
         }
         catch(QueryException $e)
         {
-            return response(['message' => 'An error has occurred. Contact support.'], 500);
+            return response(['message' => 'Ocorreu algum erro. Contate o suporte.'], 500);
         }
     }
 
@@ -66,11 +66,11 @@ class UserController extends Controller
         try
         {
             $data = User::store($request->all());
-            return response(['message' => 'User created successfully', 'data' => $data], 200);
+            return response(['message' => 'Usuário cadastrado com sucesso!', 'data' => $data], 200);
         }
         catch(QueryException $e)
         {
-            return response(['message' => 'An error has occurred. Contact support.'], 500);
+            return response(['message' => 'Um erro ocorreu. Contate o suporte.'], 500);
         }
     }
 

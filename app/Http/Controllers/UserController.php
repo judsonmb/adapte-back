@@ -63,7 +63,7 @@ class UserController extends Controller
         try
         {
             $data = User::store($request->all());
-            return response(['data' => $data], 200);
+            return response(['message' => 'Usuário cadastrado com sucesso!','data' => $data], 200);
         }
         catch(\Exception $e)
         {

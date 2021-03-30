@@ -42,17 +42,14 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        try
+        {
+            $data = User::orderby('name')->get();
+            return response(['message' => 'Lista retornada com sucesso', 'data' => $data], 200);
+        }catch(QueryException $e)
+        {
+            return response(['message' => 'Um erro ocorreu. Contate o suporte.'], 500);
+        }
     }
 
     /**

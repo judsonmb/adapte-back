@@ -28,9 +28,9 @@ class UserController extends Controller
 
             return response(['message' => 'Usuário logado com sucesso!', 'data' => $data], 200);
         }
-        catch(QueryException $e)
+        catch(\Exception $e)
         {
-            return response(['message' => 'Ocorreu algum erro. Contate o suporte.'], 500);
+            return response(['message' => 'Um erro ocorreu. Contate o suporte.'], 500);
         }
     }
 
@@ -46,7 +46,7 @@ class UserController extends Controller
         {
             $data = User::orderby('name')->get();
             return response(['message' => 'Lista retornada com sucesso', 'data' => $data], 200);
-        }catch(QueryException $e)
+        }catch(\Exception $e)
         {
             return response(['message' => 'Um erro ocorreu. Contate o suporte.'], 500);
         }
@@ -65,7 +65,7 @@ class UserController extends Controller
             $data = User::store($request->all());
             return response(['message' => 'Usuário cadastrado com sucesso!', 'data' => $data], 200);
         }
-        catch(QueryException $e)
+        catch(\Exception $e)
         {
             return response(['message' => 'Um erro ocorreu. Contate o suporte.'], 500);
         }

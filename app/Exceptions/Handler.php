@@ -13,7 +13,7 @@ class Handler extends ExceptionHandler
      * @var array
      */
     protected $dontReport = [
-        //
+        
     ];
 
     /**
@@ -37,5 +37,22 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+    }
+
+    /**
+     * Render an exception into an HTTP response.
+     *
+     * @param Request $request
+     * @param \Exception $exception
+     *
+     * @return \Illuminate\Http\Response|\Symfony\Component\HttpFoundation\Response
+     */
+    public function render($request, Throwable $exception)
+    {
+        switch (get_class($exception)) {
+            case "Illuminate\\Database\\QueryException":
+                return response(['message' => 'Um erro ocorreu. Contate o suporte.'], 500);
+                break;
+        }
     }
 }

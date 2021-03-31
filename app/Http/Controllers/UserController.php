@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Requests\UserLoginRequest;
 use App\Http\Requests\UserStoreRequest;
-use Validator;
 use Illuminate\Database\QueryException;
 
 class UserController extends Controller
@@ -23,7 +22,7 @@ class UserController extends Controller
 
             if(empty($data))
             {
-                return response(['message' => 'Unauthorised'], 401);
+                return response(['message' => 'E-mail e senha não conferem.'], 401);
             }
 
             return response(['data' => $data], 200);

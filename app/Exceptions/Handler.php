@@ -13,7 +13,7 @@ class Handler extends ExceptionHandler
      * @var array
      */
     protected $dontReport = [
-        
+        //
     ];
 
     /**
@@ -53,6 +53,10 @@ class Handler extends ExceptionHandler
             case "Illuminate\\Database\\QueryException":
                 return response(['message' => 'Um erro ocorreu. Contate o suporte.'], 500);
                 break;
+            case "Illuminate\\Validation\\ValidationException":
+                return response(['message' => $exception->validator->messages()], 422);
+                break;
+
         }
     }
 }

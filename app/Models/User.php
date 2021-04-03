@@ -32,6 +32,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'created_at', 
+        'updated_at',
+        'email_verified_at'
     ];
 
     /**
@@ -58,6 +61,8 @@ class User extends Authenticatable
 
     protected function store(Array $input)
     {
+        $input['name'] = ucwords($input['name']);
+        $input['email'] = strtolower($input['email']);
         $input['password'] = bcrypt($input['password']);
         $user = $this->create($input);
         $data['token'] =  $user->createToken('MyApp')->accessToken;

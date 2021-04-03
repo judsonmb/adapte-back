@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Requests\UserLoginRequest;
 use App\Http\Requests\UserStoreRequest;
+use App\Http\Requests\UserUpdateRequest;
 use Illuminate\Database\QueryException;
 
 class UserController extends Controller
@@ -89,7 +90,16 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        try
+        {
+            $data = User::find($id);
+            if(!$data){
+                return response(['message' => 'Usuário não encontrado.'], 404);
+            }
+            return response(['message' => 'Usuário encontrado com sucesso.', 'data' => $data], 200);
+        }catch(\Exception $e){
+            return response(['message' => 'Um erro ocorreu. Contate o suporte.'], 500);
+        }
     }
 
     /**
@@ -99,9 +109,20 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UserUpdateRequest $request, $id)
     {
-        //
+        try
+        {
+            $data = User::where('id', $id)->update(['name' => ucwords($request->input('name'))]);
+            if(!$data){
+                return response(['message' => 'Usuário não encontrado.'], 404);
+            }
+            return response(['message' => 'Usuário editado com sucesso!'], 200);
+        }
+        catch(\Exception $e)
+        {
+            return response(['message' => 'Um erro ocorreu: ' . $e], 500);
+        }
     }
 
     /**

@@ -53,10 +53,15 @@ class Handler extends ExceptionHandler
             case "Illuminate\\Database\\QueryException":
                 return response(['message' => 'Um erro ocorreu. Contate o suporte.'], 500);
                 break;
+            case "Symfony\\Component\\ErrorHandler\\Error\\FatalError":
+                return response(['message' => 'Um erro ocorreu. Contate o suporte.'], 500);
+                break;
             case "Illuminate\\Validation\\ValidationException":
                 return response(['message' => $exception->validator->messages()], 422);
                 break;
-
+            case "Symfony\\Component\\Routing\\Exception\\RouteNotFoundException":
+                return response(['message' => 'Rota não encontrada ou Token não reconhecido.'], 404);
+                break;
         }
     }
 }

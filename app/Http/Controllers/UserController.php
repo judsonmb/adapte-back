@@ -121,7 +121,7 @@ class UserController extends Controller
         }
         catch(\Exception $e)
         {
-            return response(['message' => 'Um erro ocorreu: ' . $e], 500);
+            return response(['message' => 'Um erro ocorreu. Contate o suporte.'], 500);
         }
     }
 
@@ -133,6 +133,20 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        response(['passou aqui'], 200);
+        try
+        {
+            
+            $user = User::find($id);
+            if(!$user){
+                return response(['message' => 'Usuário não encontrado.'], 404);
+            }
+            $user->delete();
+            return response(['message' => 'Usuário deletado com sucesso!'], 200);
+        }
+        catch(\Exception $e)
+        {
+            return response(['message' => 'Um erro ocorreu. Contate o suporte.'], 500);
+        }
     }
 }

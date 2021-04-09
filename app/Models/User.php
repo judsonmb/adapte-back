@@ -53,6 +53,7 @@ class User extends Authenticatable
         if(Auth::attempt(['email' => $input['email'], 'password' => $input['password']])){ 
             $user = Auth::user(); 
             $data['token'] = $user->createToken('MyApp')-> accessToken; 
+            $data['id'] = $user->id;
             $data['name'] = $user->name;
         } 
         
